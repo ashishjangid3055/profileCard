@@ -29,11 +29,20 @@ export const profileSlice = createSlice({
             }
             state.push(newProfile)
         },
+        addSocial: (state, action) => {
+            const newProfile = {
+                twitter: action.payload.twitter,
+                facebook: action.payload.facebook,
+                instagram: action.payload.instagram,
+                github: action.payload.github,
+            }
+            state.push(newProfile)
+        },
     }
 
 })
 
 
-export const { addProfile, addAbout, addInterest } = profileSlice.actions;
+export const { addProfile, addAbout, addInterest, addSocial } = profileSlice.actions;
 
 export default profileSlice.reducer;
