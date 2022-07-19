@@ -1,33 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-function Profile() {
+function Profile(props) {
   const profileDetails = useSelector((state) => state.profile);
-  console.log(profileDetails)
+
+
 
   const ButtonGroup = () => {
     const data = profileDetails.length;
     if(data > 0){
       return (
         <>
-        <a href={profileDetails[0].email}>
-          <span className='fa-solid fa-envelope'></span> Email
-        </a>
-        <a href={profileDetails[0].linkedin} target='_blank'>
-          <span className='fa-brands fa-linkedin'></span> Linkedin
-        </a>
+          <a href={profileDetails[0].email}>
+            <span className='fa-solid fa-envelope'></span> Email
+          </a>
+          <a href={profileDetails[0].linkedin} target='_blank'>
+            <span className='fa-brands fa-linkedin'></span> Linkedin
+          </a>
         </>
       )
     }
     else{
       return (
         <>
-        <a href='#'>
-          <span className='fa-solid fa-envelope'></span> Email
-        </a>
-        <a href='#'>
-          <span className='fa-brands fa-linkedin'></span> Linkedin
-        </a>
+          {
+            props.toggle ? 
+              <a href='#' className='full_width'>
+                <span className='fa-solid fa-envelope'></span> Email
+              </a>
+               :
+              <> 
+                <a href='#'>
+                  <span className='fa-solid fa-envelope'></span> Email
+                </a>
+                <a href='#'>
+                  <span className='fa-brands fa-linkedin'></span> Linkedin
+                </a>
+              </>
+          }
         </>
       )
     }
@@ -36,6 +46,13 @@ function Profile() {
 
 
 	return (
+  <>
+    <button 
+      className='submit mx-auto' 
+      onClick={()=>props.setToggle(!props.toggle)}
+    >
+      Toggle
+    </button>
 		<div className='profile'>
       <div className='profile_img'>
         <img src={profileDetails.length > 0 ? profileDetails[0].image : ''} alt="" />
@@ -53,7 +70,8 @@ function Profile() {
         </div>
       </div>
     </div>
-	)
+  </>
+  )
 }
 
 export default Profile
